@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html ng-app="app">
+
+<head>
+  <link rel="stylesheet" href="bower_components/bootstrap-css/css/bootstrap.min.css" />
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/croppie/croppie.js"></script>
+  <link rel="stylesheet" href="bower_components/croppie/croppie.css">
+  <link rel="stylesheet" href="angular-image-croppie.css">
+  <script src="angular-image-croppie.js"></script>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js"></script>
+</head>
+
+<body>
+  <div class="jumbotron">
+    <div class="container">
+      <h1>angular-image-croppie</h1>
+    </div>
+
+  </div>
+
+  <div class="container" ng-controller="MyController as vm">
+
+    <div class="alert alert-info" ng-if="vm.loading">
+      <p>Loading ...</p>
+    </div>
+
+    <div ng-if="!vm.loading">
+      <image-croppie src="vm.src" croppie="vm.croppie" options="{ viewport: { width: 350, height: 250 } }">
+      </image-croppie>
+
+      <div class="row">
+        <div class="col-md-12 col-center text-center">
+          <label class="btn btn-lg btn-default">
+              <i class="fa fa-upload"></i>&nbsp;Select File<input type="file" style="display:none;" read-file="vm.src"/>
+            </label>
+          <button class="btn btn-lg btn-primary" ng-click="vm.crop()">
+              <i class="fa fa-crop"></i>&nbsp;Crop Image
+          </button>
+        </div>
+      </div>
+
+      <div class="image-list">
+        <div class="row">
+          <div class="col-xs-3 col-md-2" ng-repeat="image in vm.images track by $index">
+            <a href="" class="thumbnail" ng-click="vm.src = image">
+              <img class="img-responsive" ng-src="{{image}}" />
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+
+</html>
