@@ -1,10 +1,10 @@
 {
-  "name": "angelar-image-croppie",
+  "name": "angular-image-croppie",
   "version": "0.0.1",
   "description": "Angular wrapper for the CroppieJS library.",
   "main": "",
   "license": "MIT",
-  "homepage": "",
+  "homepage": "https://github.com/McNull/angular-image-croppie.git",
   "ignore": [
     "**/.*",
     "node_modules",
