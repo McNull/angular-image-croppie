@@ -33,7 +33,7 @@
       <div class="row">
         <div class="col-md-12 col-center text-center">
           <label class="btn btn-lg btn-default">
-              <i class="fa fa-upload"></i>&nbsp;Select File<input type="file" style="display:none;" read-file="vm.src"/>
+              <i class="fa fa-upload"></i>&nbsp;Select File<input type="file" style="display:none;" on-file-read="vm.src = data"/>
             </label>
           <button class="btn btn-lg btn-primary" ng-click="vm.crop()">
               <i class="fa fa-crop"></i>&nbsp;Crop Image
