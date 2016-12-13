@@ -44,11 +44,11 @@
     };
   });
 
-  mod.directive('readFile', function() {
+  mod.directive('onFileRead', function() {
     return {
       restrict: 'A',
       scope: {
-        readFile: '='
+        onFileRead: '&'
       },
       link: function($scope, $element) {
 
@@ -61,8 +61,9 @@
             var reader = new FileReader();
 
             reader.onload = function(e) {
-              $scope.readFile = e.target.result;
-              $scope.$apply();
+              $scope.$apply(function() {
+                $scope.onFileRead({ data: e.target.result });
+              });
             };
 
             reader.readAsDataURL(e.target.files[0]);
