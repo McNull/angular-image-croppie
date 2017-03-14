@@ -5,7 +5,7 @@
 
   var mod = angular.module('angular-image-croppie', []);
 
-  mod.directive('imageCroppie', function ($q) {
+  mod.directive('imageCroppie', function ($q, $timeout) {
     return {
       restrict: 'EA',
       scope: {
@@ -18,69 +18,72 @@
 
         $element.addClass('image-croppie');
 
-        var container = $element[0];
+        $timeout(function () {
+          var container = $element[0];
 
-        var bb = container.getBoundingClientRect();
+          var bb = container.getBoundingClientRect();
 
-        var boundary = {
-          width: bb.width,
-          height: bb.height - 33 /* slider height */
-        };
+          var boundary = {
+            width: bb.width,
+            height: bb.height - 33 /* slider height */
+          };
 
-        var viewport = {
-          width: $scope.cropWidth,
-          height: $scope.cropHeight
-        };
+          var viewport = {
+            width: $scope.cropWidth,
+            height: $scope.cropHeight
+          };
 
-        (function () {
-          if (viewport.width > boundary.width) {
-            var r = boundary.width / viewport.width;
-            viewport.height *= r;
-            viewport.width *= r;
-          }
+          (function () {
+            if (viewport.width > boundary.width) {
+              var r = boundary.width / viewport.width;
+              viewport.height *= r;
+              viewport.width *= r;
+            }
 
-          if (viewport.height > boundary.height) {
-            var r = boundary.height / viewport.height;
-            viewport.height *= r;
-            viewport.width *= r;
-          }
-        })();
+            if (viewport.height > boundary.height) {
+              var r = boundary.height / viewport.height;
+              viewport.height *= r;
+              viewport.width *= r;
+            }
+          })();
 
-        var options = {
-          boundary: boundary,
-          viewport: viewport
-        };
+          var options = {
+            boundary: boundary,
+            viewport: viewport
+          };
 
-        var croppie = new Croppie(container, options);
+          var croppie = new Croppie(container, options);
 
-        $scope.cropper = {
-          result: function () {
-            return $q(function (resolve, reject) {
-              if (!$scope.src) {
-                reject('No image data');
-              } else {
-                croppie.result({
-                  type: 'base64',
-                  size: {
-                    width: $scope.width,
-                    height: $scope.height
-                  },
-                  format: getImageFormat($scope.src)
-                }).then(function (result) {
-                  resolve(result);
-                });
-              }
-            });
-          }
-        };
+          $scope.cropper = {
+            result: function () {
+              return $q(function (resolve, reject) {
+                if (!$scope.src) {
+                  reject('No image data');
+                } else {
+                  croppie.result({
+                    type: 'base64',
+                    size: {
+                      width: $scope.width,
+                      height: $scope.height
+                    },
+                    format: getImageFormat($scope.src)
+                  }).then(function (result) {
+                    resolve(result);
+                  });
+                }
+              });
+            }
+          };
 
-        $scope.$watch('src', function (newValue) {
-          if (newValue) {
-            croppie.bind(newValue).then(function () {
-              croppie.setZoom(0);
-            });
-          }
+          $scope.$watch('src', function (newValue) {
+            if (newValue) {
+              croppie.bind(newValue).then(function () {
+                croppie.setZoom(0);
+              });
+            }
+          });
         });
+
       }
     };
   });
