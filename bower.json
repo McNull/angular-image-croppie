@@ -1,11 +1,12 @@
 {
   "name": "angular-image-croppie",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "Angular wrapper for the CroppieJS library.",
   "main": "",
   "license": "MIT",
   "homepage": "https://github.com/McNull/angular-image-croppie.git",
   "ignore": [
+    "**/.*",
     "**/.*",
     "node_modules",
     "bower_components",

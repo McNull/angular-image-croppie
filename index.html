@@ -27,8 +27,22 @@
     </div>
 
     <div ng-if="!vm.loading">
-      <image-croppie src="vm.src" croppie="vm.croppie" options="{ viewport: { width: 350, height: 250 } }">
-      </image-croppie>
+
+      <div class="my-crop-container">
+        <image-croppie src="vm.src" cropper="vm.cropper" crop-width="1280" crop-height="720">
+        </image-croppie>
+      </div>
+
+      <!--<image-croppie src="vm.src" croppie="vm.croppie" options="{ viewport: { width: 1280, height: 720 }, boundary: { width: 800, height: 800 } }">
+      </image-croppie>-->
+
+      <!--
+        1280/720 = 1.77777777
+        800/1280 = 0.625
+        720 * 0.625 =
+      -->
+      <!--<image-croppie src="vm.src" croppie="vm.croppie" options="{ viewport: { width: 800, height: 450 }, boundary: { width: 800, height: 800 } }">
+      </image-croppie>-->
 
       <div class="row">
         <div class="col-md-12 col-center text-center">
@@ -44,9 +58,9 @@
       <div class="image-list">
         <div class="row">
           <div class="col-xs-3 col-md-2" ng-repeat="image in vm.images track by $index">
-            <a href="" class="thumbnail" ng-click="vm.src = image">
+            <span class="thumbnail" ng-click="vm.src = image">
               <img class="img-responsive" ng-src="{{image}}" />
-            </a>
+            </span>
           </div>
         </div>
       </div>
